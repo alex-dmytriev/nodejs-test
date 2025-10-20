@@ -3,6 +3,7 @@ import { celebrate } from 'celebrate';
 import {
   createStudentSchema,
   studentIdParamSchema,
+  updateStudentSchema,
 } from '../validations/studentsValidation.js';
 import {
   getStudents,
@@ -26,6 +27,10 @@ router.delete(
   celebrate(studentIdParamSchema),
   deleteStudent,
 );
-router.patch('/students/:studentId', updateStudent);
+router.patch(
+  '/students/:studentId',
+  celebrate(updateStudentSchema),
+  updateStudent,
+);
 
 export default router;
