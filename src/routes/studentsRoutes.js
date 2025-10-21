@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { celebrate } from 'celebrate';
 import {
   createStudentSchema,
+  getStudentsSchema,
   studentIdParamSchema,
   updateStudentSchema,
 } from '../validations/studentsValidation.js';
@@ -15,7 +16,7 @@ import {
 
 const router = Router();
 
-router.get('/students', getStudents);
+router.get('/students', celebrate(getStudentsSchema), getStudents);
 router.get(
   '/students/:studentId',
   celebrate(studentIdParamSchema),
