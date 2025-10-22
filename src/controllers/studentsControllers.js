@@ -4,13 +4,20 @@ import createHttpError from 'http-errors';
 //* Get the list of all students
 export const getStudents = async (req, res) => {
   // Get the pagination params
-  const { page = 1, perPage = 10, gender, minAvgMark } = req.query;
+  const { page = 1, perPage = 10, gender, minAvgMark, search } = req.query;
   const skip = (page - 1) * perPage;
 
   // Base query to collection
   const studentsQuery = Student.find();
 
-  // Build a filter
+  // Text search by name
+  if (search) {
+    studentsQuery.where({
+      $text: { $search: search },
+    });
+  }
+
+  // Filters
   if (gender) {
     studentsQuery.where('gender').equals(gender);
   }
