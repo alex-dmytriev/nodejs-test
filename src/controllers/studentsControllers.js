@@ -4,7 +4,16 @@ import createHttpError from 'http-errors';
 //* Get the list of all students
 export const getStudents = async (req, res) => {
   // Get the pagination params
-  const { page = 1, perPage = 10, gender, minAvgMark, search } = req.query;
+  const {
+    page = 1,
+    perPage = 10,
+    gender,
+    minAvgMark,
+    search,
+    sortBy = '_id',
+    sortOrder = 'asc',
+  } = req.query;
+
   const skip = (page - 1) * perPage;
 
   // Base query to collection
@@ -27,8 +36,11 @@ export const getStudents = async (req, res) => {
 
   // Perform two queries in parallel
   const [totalItems, students] = await Promise.all([
-    studentsQuery.clone().countDocuments(), // this will be totalItems
-    studentsQuery.skip(skip).limit(perPage), // this one will be students
+    studentsQuery.clone().countDocuments(),
+    studentsQuery
+      .skip(skip)
+      .limit(perPage)
+      .sort({ [sortBy]: sortOrder }),
   ]);
 
   // Calculate total pages
