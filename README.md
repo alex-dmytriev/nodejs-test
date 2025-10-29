@@ -31,6 +31,6 @@
   - Search for existing user by email
   - Compare the input password with the hash in DB
   - Return response if success or error if failed
-- add `loginUserShcema` to `authValidation.js`
-- add `loginUser` controller to `authController.js`
+- add [`loginUserSchema`](https://github.com/alex-dmytriev/nodejs-test/blob/dfd1e9659c2fc2d4d5b138b25b35efa6fc7d0049/src/validations/authValidation.js#L10) to `authValidation.js`
+- add [`loginUser`](https://github.com/alex-dmytriev/nodejs-test/blob/dfd1e9659c2fc2d4d5b138b25b35efa6fc7d0049/src/controllers/authController.js#L25) controller to `authController.js`
 - connect validator & controller to the route in `authRoutes.js`
