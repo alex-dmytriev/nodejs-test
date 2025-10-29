@@ -1,7 +1,10 @@
 import bcrypt from 'bcrypt';
 import createHttpError from 'http-errors';
 import { User } from '../models/user.js';
+import { createSession, setSessionCookies } from '../services/auth.js';
+import { Session } from '../models/session.js';
 
+//* Register controller
 export const registerUser = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -18,10 +21,17 @@ export const registerUser = async (req, res, next) => {
     password: hashedPassword,
   });
 
+  // Create a new session
+  const newSession = await createSession(newUser._id);
+
+  // Call and transmit the response and session
+  setSessionCookies(res, newSession);
+
   // Response with user data without password
   res.status(201).json({ newUser });
 };
 
+//* Login controller
 export const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -36,6 +46,14 @@ export const loginUser = async (req, res, next) => {
   if (!isValidPassword) {
     return next(createHttpError(401, 'Invalid credentials'));
   }
+
+  // Remove the old session
+  await Session.deleteOne({ userId: user._id });
+  // Create a new session
+  const newSession = await createSession(user._id);
+
+  // Call, transmit response and session
+  setSessionCookies(res, newSession);
 
   res.status(200).json(user);
 };

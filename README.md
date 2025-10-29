@@ -34,3 +34,29 @@
 - add [`loginUserSchema`](https://github.com/alex-dmytriev/nodejs-test/blob/dfd1e9659c2fc2d4d5b138b25b35efa6fc7d0049/src/validations/authValidation.js#L10) to `authValidation.js`
 - add [`loginUser`](https://github.com/alex-dmytriev/nodejs-test/blob/dfd1e9659c2fc2d4d5b138b25b35efa6fc7d0049/src/controllers/authController.js#L25) controller to `authController.js`
 - connect validator & controller to the route in `authRoutes.js`
+
+### Sessions
+
+- Create a model for session in `src/models/session.js`
+  - `accessToken`: short-living token (15 min)
+  - `accessTokenValidUntil`: when `accessToken` expires
+  - `refreshToken`: long-living token (1 day)
+  - `refreshTokenValidUntil`: when `refreshToken` expires
+  - `userId`: session owner
+- Store time constants in `src/constants/time.js` to reuse them
+- Create a session in `src/services/auth.js`
+- Session usage in `authControllers`:
+  - Register => create a new session
+  - Login => remove old session (if any), create a new one
+
+### Cookies
+
+- Setup cookie parser
+  - `npm i cookie-parser`
+  - Add it as middleware to `server.js` via `app.use(cookieParser());`
+- Add cookie setup to `src/services/auth.js` (see logic inside)
+- Add cookie setup to controllers `authController.js`
+  - Controllers create / check the user
+  - Then set cookies
+- There should be two new collections in MongoDB now: users & sessions
+- Note that users <> students that's why regular search by ID will not work

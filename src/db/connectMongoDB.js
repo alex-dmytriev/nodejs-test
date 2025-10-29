@@ -6,6 +6,7 @@ export const connectMongoDB = async () => {
     const mongoUrl = process.env.MONGO_URL;
     await mongoose.connect(mongoUrl);
     console.log('MongoDB connection established successfully');
+    console.log('Connected DB:', mongoose.connection.name);
 
     // Indexes in DB according to schema
     await Student.syncIndexes();
