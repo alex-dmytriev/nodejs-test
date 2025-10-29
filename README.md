@@ -60,3 +60,10 @@
   - Then set cookies
 - There should be two new collections in MongoDB now: users & sessions
 - Note that users <> students that's why regular search by ID will not work
+
+### Logout
+
+- Todo 1: clear cookies (via server only)
+- Todo 2: Delete session from DB
+- Add `logoutUser` controller to `authController.js`
+- Add `/auth/logout` route to `authRoutes.js`
