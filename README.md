@@ -67,3 +67,9 @@
 - Todo 2: Delete session from DB
 - Add `logoutUser` controller to `authController.js`
 - Add `/auth/logout` route to `authRoutes.js`
+
+## Authentication Part2 (Lesson 8)
+
+- Session update (cookie rotation)
+  - Add `refreshUserSession` controller to `authController.js` (see logic)
+  - Add `/auth/refresh` to `authRoutes.js`

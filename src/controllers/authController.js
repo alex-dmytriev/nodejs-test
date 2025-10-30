@@ -72,3 +72,38 @@ export const logoutUser = async (req, res) => {
 
   res.status(204).send(); // 204 no content response
 };
+
+//* Refresh session controller
+export const refreshUserSession = async (req, res, next) => {
+  // 1. Looking for the current session by Session ID and refreshToken
+  const session = await Session.findOne({
+    _id: req.cookies.sessionId,
+    refreshToken: req.cookies.refreshToken,
+  });
+
+  // 2. If there's no session, return error
+  if (!session) {
+    return next(createHttpError(401, 'Session not found'));
+  }
+
+  // 3. If session exists, validate refresh token
+  const isSessionTokenExpired =
+    new Date() > new Date(session.refreshTokenValidUntil);
+
+  // If refresh token is expired, return error
+  if (isSessionTokenExpired) {
+    return next(createHttpError(401, 'Session token expired'));
+  }
+
+  // 4. If all the checks went well, delete current session
+  await Session.deleteOne({
+    _id: req.cookies.sessionId,
+    refreshToken: req.cookies.refreshToken,
+  });
+
+  // 5. Create a new session and add cookies
+  const newSession = await createSession(session.userId);
+  setSessionCookies(res, newSession);
+
+  res.status(200).json({ message: 'Session refreshed' });
+};
