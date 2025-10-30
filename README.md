@@ -81,3 +81,10 @@
 - Use it in `studentsRoutes.js`
   - import it
   - add it to all the routes that start with `/students`
+
+### Model connections
+
+- Configure connection between `users` and `students`
+- Add connection to `src/models/student.js`
+  - userId with ref to "User" collection
+- Add userId property to `createStudent()` in `studentsControllers.js`
