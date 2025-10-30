@@ -6,6 +6,7 @@ import {
   studentIdParamSchema,
   updateStudentSchema,
 } from '../validations/studentsValidation.js';
+import { authenticate } from '../middleware/authenticate.js';
 import {
   getStudents,
   getStudentById,
@@ -15,6 +16,9 @@ import {
 } from '../controllers/studentsControllers.js';
 
 const router = Router();
+
+// Add middleware to all routes that start with /stundents
+router.use('/students', authenticate);
 
 router.get('/students', celebrate(getStudentsSchema), getStudents);
 router.get(

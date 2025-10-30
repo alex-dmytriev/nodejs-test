@@ -70,6 +70,14 @@
 
 ## Authentication Part2 (Lesson 8)
 
-- Session update (cookie rotation)
-  - Add `refreshUserSession` controller to `authController.js` (see logic)
-  - Add `/auth/refresh` to `authRoutes.js`
+### Session update (cookie rotation)
+
+- Add `refreshUserSession` controller to `authController.js` (see logic)
+- Add `/auth/refresh` to `authRoutes.js`
+
+### Authenticate Middleware
+
+- Create `src/middleware/authenticate.js` (see logic)
+- Use it in `studentsRoutes.js`
+  - import it
+  - add it to all the routes that start with `/students`
