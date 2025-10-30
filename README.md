@@ -7,10 +7,10 @@
 ### Registration
 
 - Create a user model [`src/models/user.js'](https://github.com/alex-dmytriev/nodejs-test/blob/main/src/models/user.js)
-- Email should be unique, use `unique: true`
-- Add [pre-hook](https://github.com/alex-dmytriev/nodejs-test/blob/5e38a90ea3359f0f72093e10869a51811ca76e8b/src/models/user.js#L24) to use email as username if none defined
-- Delete the password from the response using [`.toJSON`](https://github.com/alex-dmytriev/nodejs-test/blob/5e38a90ea3359f0f72093e10869a51811ca76e8b/src/models/user.js#L32)
-- Add validation schema to `src/validations/authValidation.js`
+  - Use `unique: true` for email
+  - Add [pre-hook](https://github.com/alex-dmytriev/nodejs-test/blob/5e38a90ea3359f0f72093e10869a51811ca76e8b/src/models/user.js#L24) to use email as username if none defined
+  - Delete the password from the response using [`.toJSON`](https://github.com/alex-dmytriev/nodejs-test/blob/5e38a90ea3359f0f72093e10869a51811ca76e8b/src/models/user.js#L32)
+- Add `registerUserSchema` to `src/validations/authValidation.js`
   - Use email validation `email: Joi.string().email().required()`
 - Create the controller: `src/controllers/authController.js`
   - Add check for existing email
