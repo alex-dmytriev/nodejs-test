@@ -15,7 +15,41 @@
   - [Model connections](https://github.com/alex-dmytriev/nodejs-test?tab=readme-ov-file#model-connections)
   - [Private Data](https://github.com/alex-dmytriev/nodejs-test?tab=readme-ov-file#private-data)
 
-## ...Lessons 1-6...
+## Node.js Intro (Lesson 1)
+
+### Initialize Node.js project
+
+- Check node version `node --v`
+- Init npm in the working folder `npm init -y`
+- Add `"type": "module"` to `package.json`
+
+### JS run out of the browser
+
+- `npm i -D nodemon`
+- Add nodemon script to `package.json`
+
+### Working Environment Setup
+
+- Install EditorConfig extension
+- Create `.editorconfig` file
+- Add config to it (see code)
+- Install Prettier
+- Create `.prettierrc` + config
+- Install ESLint extension
+- `npm init @eslint/config@latest`
+- Add rules property to `eslint.config.mjs` (see code)
+- Create & setup `.gitignore`
+
+## Express (Lesson 2) ...In Progress...
+
+### Webservice creation
+
+- `npm i express`
+- Create `/src/server.js`
+- Add boilerplate code to test (see code)
+- ...
+
+## ...Lessons 3-6...
 
 ## Authentication (Lesson7)
 
