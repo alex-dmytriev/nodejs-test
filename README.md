@@ -1,5 +1,20 @@
 # This is Node.js test practice project
 
+## Table of Contents
+
+- [**Authentication (Lesson 7)**](https://github.com/alex-dmytriev/nodejs-test?tab=readme-ov-file#)
+  - [Registration](https://github.com/alex-dmytriev/nodejs-test?tab=readme-ov-file#registration)
+  - [Password hashing](https://github.com/alex-dmytriev/nodejs-test?tab=readme-ov-file#password-hashing)
+  - [Login](https://github.com/alex-dmytriev/nodejs-test?tab=readme-ov-file#login)
+  - [Sessions](https://github.com/alex-dmytriev/nodejs-test?tab=readme-ov-file#sessions)
+  - [Cookies](https://github.com/alex-dmytriev/nodejs-test?tab=readme-ov-file#cookies)
+  - [Logout](https://github.com/alex-dmytriev/nodejs-test?tab=readme-ov-file#logout)
+- [**Authentication Part 2 (Lesson 8)**](https://github.com/alex-dmytriev/nodejs-test?tab=readme-ov-file#authentication-part2-lesson-8)
+  - [Session update (cookies rotation)](https://github.com/alex-dmytriev/nodejs-test?tab=readme-ov-file#session-update-cookie-rotation)
+  - [Auth Middleware](https://github.com/alex-dmytriev/nodejs-test?tab=readme-ov-file#authenticate-middleware)
+  - [Model connections](https://github.com/alex-dmytriev/nodejs-test?tab=readme-ov-file#model-connections)
+  - [Private Data](https://github.com/alex-dmytriev/nodejs-test?tab=readme-ov-file#private-data)
+
 ## ...Lessons 1-6...
 
 ## Authentication (Lesson7)
