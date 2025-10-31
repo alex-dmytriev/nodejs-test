@@ -87,4 +87,14 @@
 - Configure connection between `users` and `students`
 - Add connection to `src/models/student.js`
   - userId with ref to "User" collection
-- Add userId property to `createStudent()` in `studentsControllers.js`
+- Add userId property to `createStudent()` in `.studentsController.js`
+
+### Private Data
+
+- Todo 1: return only students related to current user
+- Todo 2: allow CRUD of the student only for it's related user
+- Apply logic to limit actons by userId so that only authorized users and manipulate students in their group of influence in `studetsController.js`
+  - **Get All students**: Add userId to Student.find()
+  - **Get Student by ID**: Add `userId` to `Student.findOne()` (use `.findOne` instead of `.findOneById`)
+  - **Delete student**: Add `userId` to `Student.findOneAndDelete()`
+  - **Update Student**: add `userId` to `.findOneAndUpdate()`

@@ -13,7 +13,7 @@ import {
   createStudent,
   deleteStudent,
   updateStudent,
-} from '../controllers/studentsControllers.js';
+} from '../controllers/studentsController.js';
 
 const router = Router();
 
