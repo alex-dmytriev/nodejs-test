@@ -16,8 +16,8 @@ export const getStudents = async (req, res) => {
 
   const skip = (page - 1) * perPage;
 
-  // Base query to collection
-  const studentsQuery = Student.find();
+  // Base query to search for students related to the user
+  const studentsQuery = Student.find({ userId: req.user._id });
 
   // Text search by name
   if (search) {
@@ -58,7 +58,12 @@ export const getStudents = async (req, res) => {
 //* Get a student by ID
 export const getStudentById = async (req, res, next) => {
   const { studentId } = req.params;
-  const student = await Student.findById(studentId);
+
+  // Search student related to the user by ID
+  const student = await Student.findOne({
+    _id: studentId,
+    userId: req.user._id, // userId search
+  });
 
   if (!student) {
     next(createHttpError(404, 'Student not found'));
@@ -79,6 +84,7 @@ export const deleteStudent = async (req, res, next) => {
   const { studentId } = req.params;
   const student = await Student.findOneAndDelete({
     _id: studentId,
+    userId: req.user._id, // Search criteria by userId
   });
 
   if (!student) {
@@ -94,9 +100,9 @@ export const updateStudent = async (req, res, next) => {
   const { studentId } = req.params;
 
   const student = await Student.findOneAndUpdate(
-    { _id: studentId }, // Шукаємо по id
+    { _id: studentId, userId: req.user._id }, // Search by id + userId
     req.body,
-    { new: true }, // повертаємо оновлений документ
+    { new: true }, // return updated document
   );
 
   if (!student) {
