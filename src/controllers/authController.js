@@ -28,7 +28,7 @@ export const registerUser = async (req, res, next) => {
   setSessionCookies(res, newSession);
 
   // Response with user data without password
-  res.status(201).json({ newUser });
+  res.status(201).json(newUser);
 };
 
 //* Login controller
