@@ -147,3 +147,36 @@
   - **Get Student by ID**: Add `userId` to `Student.findOne()` (use `.findOne` instead of `.findOneById`)
   - **Delete student**: Add `userId` to `Student.findOneAndDelete()`
   - **Update Student**: add `userId` to `.findOneAndUpdate()`
+
+## Email (Lesson 9)
+
+### Email Protocols
+
+- SMTP: to send data to email server
+- POP3: to receive and store data
+- Crypto versions: TLS/SSL
+
+### Password Reseting Plan
+
+- OTP: one time password
+- JWT: JSON Web token
+  - Format: header.payload.signature
+  - Header contains meta data
+  - Payload (claims like userId...)
+  - Signature contains secret key generated with header + payload
+
+### Algorithm:
+
+- Create endpoint `POST /auth/request-reset-password`
+  - check user email
+  - generate JWT
+  - send password reset email
+- Create endpoin `POST /auth/reset-password`
+  - accept token and new password
+  - check token
+  - update user password
+
+### Password Reset (practice)
+
+- add `requestResetSchema` validator to `authValidation.js` (just email)
+-
