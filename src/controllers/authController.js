@@ -167,3 +167,34 @@ export const requestResetEmail = async (req, res, next) => {
     .status(200)
     .json({ message: 'If this email exists, a reset link has been sent' });
 };
+
+//* Reset password
+export const resetPassword = async (req, res, next) => {
+  const { token, password } = req.body;
+
+  // 1. Check and decode token
+  let payload;
+  try {
+    payload = jwt.verify(token, process.env.JWT_SECRET);
+  } catch {
+    return next(createHttpError(401, 'Invalid or expired token'));
+  }
+
+  // 2. Looking for a user
+  const user = await User.findOne({ _id: payload.sub, email: payload.email });
+  if (!user) {
+    return next(createHttpError(404, 'User not found'));
+  }
+
+  // 3. If user exists, create new password and update user
+  const hashedPassword = await bcrypt.hash(password, 10);
+  await User.updateOne({ _id: user._id }, { password: hashedPassword });
+
+  // 4. Invalidate all the previous user sessions
+  await Session.deleteMany({ userId: user._id });
+
+  // 5. Return success response
+  res
+    .status(200)
+    .json({ message: 'Password reset successful. Please log in again.' });
+};

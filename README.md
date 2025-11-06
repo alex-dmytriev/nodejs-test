@@ -200,4 +200,10 @@
 - `npm i handlebars` helps to work with email html dynamically
 - create `src/templates/reset-password-email.html`
 - connect handlebars in `authController.js` (FRONTEND_DOMAIN=http://localhost:3000 temporarily)
--
+
+### Password change
+
+- use route `POST /auth/reset-password`
+- add validator `resetPasswordSchema` to `authValidation.js`
+- add controller `resetPassword` (see logic)
+- add route, validator and controller to `authRoutes.js`
