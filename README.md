@@ -184,17 +184,20 @@
 
 #### SMTP & Sending Utility
 
-- npm i nodemailer
+- `npm i nodemailer`
 - register on Brevo.com
 - add extra environment variables from Brevo.com to `.env`
 - Create utility `src/utils/sendEmail.js`
 
 #### Generate JWT for the link
 
-- npm i jsonwebtoken
+- `npm i jsonwebtoken`
 - add random secret string to `.env` the value may be any `JWT_SECRET`
 - add token generation and email sent to the `authController.js`
 
 ### Handlebars Templator
 
-- npm i handlebars
+- `npm i handlebars` helps to work with email html dynamically
+- create `src/templates/reset-password-email.html`
+- connect handlebars in `authController.js` (FRONTEND_DOMAIN=http://localhost:3000 temporarily)
+-
