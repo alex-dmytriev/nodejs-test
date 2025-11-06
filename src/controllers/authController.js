@@ -3,6 +3,11 @@ import createHttpError from 'http-errors';
 import { User } from '../models/user.js';
 import { createSession, setSessionCookies } from '../services/auth.js';
 import { Session } from '../models/session.js';
+import jwt from 'jsonwebtoken';
+import { sendEmail } from '../utils/sendEmail.js';
+import handlebars from 'handlebars';
+import path from 'node:path';
+import fs from 'node:fs/promises';
 
 //* Register controller
 export const registerUser = async (req, res, next) => {
@@ -106,4 +111,90 @@ export const refreshUserSession = async (req, res, next) => {
   setSessionCookies(res, newSession);
 
   res.status(200).json({ message: 'Session refreshed' });
+};
+
+//* Password reset request controller
+export const requestResetEmail = async (req, res, next) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  // if there's no user deliberately return "success response"
+  if (!user) {
+    {
+      return res
+        .status(200)
+        .json({ message: 'If this email exists, a reset link has been sent' });
+    }
+  }
+
+  // if there is a user, getnerate JWT and send email
+  const resetToken = jwt.sign(
+    { sub: user._id, email },
+    process.env.JWT_SECRET,
+    { expiresIn: '15m' },
+  );
+
+  // 1. Form a path to the template
+  const templatePath = path.resolve('src/templates/reset-password-email.html');
+
+  // 2. Read the template
+  const templateSource = await fs.readFile(templatePath, 'utf-8');
+
+  // 3. Get the template ready to be filled
+  const template = handlebars.compile(templateSource);
+
+  // 4. Form HTML with dynamic data from the template
+  const html = template({
+    name: user.username,
+    link: `${process.env.FRONTEND_DOMAIN}/reset-password?token=${resetToken}`,
+  });
+
+  try {
+    await sendEmail({
+      from: process.env.SMTP_FROM,
+      to: email,
+      subject: 'Reset your password',
+      html, // 5. send HTML as a function now
+    });
+  } catch {
+    next(
+      createHttpError(500, 'Failed to send the email, please try again later'),
+    );
+    return;
+  }
+  res
+    .status(200)
+    .json({ message: 'If this email exists, a reset link has been sent' });
+};
+
+//* Reset password
+export const resetPassword = async (req, res, next) => {
+  const { token, password } = req.body;
+
+  // 1. Check and decode token
+  let payload;
+  try {
+    payload = jwt.verify(token, process.env.JWT_SECRET);
+  } catch {
+    return next(createHttpError(401, 'Invalid or expired token'));
+  }
+
+  // 2. Looking for a user
+  const user = await User.findOne({ _id: payload.sub, email: payload.email });
+  if (!user) {
+    return next(createHttpError(404, 'User not found'));
+  }
+
+  // 3. If user exists, create new password and update user
+  const hashedPassword = await bcrypt.hash(password, 10);
+  await User.updateOne({ _id: user._id }, { password: hashedPassword });
+
+  // 4. Invalidate all the previous user sessions
+  await Session.deleteMany({ userId: user._id });
+
+  // 5. Return success response
+  res
+    .status(200)
+    .json({ message: 'Password reset successful. Please log in again.' });
 };

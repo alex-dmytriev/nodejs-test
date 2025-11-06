@@ -165,7 +165,7 @@
   - Payload (claims like userId...)
   - Signature contains secret key generated with header + payload
 
-### Algorithm:
+#### Algorithm:
 
 - Create endpoint `POST /auth/request-reset-password`
   - check user email
@@ -178,5 +178,32 @@
 
 ### Password Reset (practice)
 
-- add `requestResetSchema` validator to `authValidation.js` (just email)
--
+- add validator `requestResetEmailSchema` to `authValidation.js` (just email)
+- add controller `requestResetEmail` to `authController.js`
+- connect validation and controller to route `/src/routes/authRoutes.js`
+
+#### SMTP & Sending Utility
+
+- `npm i nodemailer`
+- register on Brevo.com
+- add extra environment variables from Brevo.com to `.env`
+- Create utility `src/utils/sendEmail.js`
+
+#### Generate JWT for the link
+
+- `npm i jsonwebtoken`
+- add random secret string to `.env` the value may be any `JWT_SECRET`
+- add token generation and email sent to the `authController.js`
+
+### Handlebars Templator
+
+- `npm i handlebars` helps to work with email html dynamically
+- create `src/templates/reset-password-email.html`
+- connect handlebars in `authController.js` (FRONTEND_DOMAIN=http://localhost:3000 temporarily)
+
+### Password change
+
+- use route `POST /auth/reset-password`
+- add validator `resetPasswordSchema` to `authValidation.js`
+- add controller `resetPassword` (see logic)
+- add route, validator and controller to `authRoutes.js`
