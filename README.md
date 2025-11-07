@@ -179,6 +179,7 @@
 ### Password Reset (practice)
 
 - add validator `requestResetEmailSchema` to `authValidation.js` (just email)
+- `npm i jsonwebtoken`
 - add controller `requestResetEmail` to `authController.js`
 - connect validation and controller to route `/src/routes/authRoutes.js`
 
