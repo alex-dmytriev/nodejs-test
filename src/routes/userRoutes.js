@@ -4,6 +4,6 @@ import { updateUserAvatar } from '../controllers/userController.js';
 
 const router = Router();
 
-router.patch('users/me/avatar', authenticate, updateUserAvatar);
+router.patch('/users/me/avatar', authenticate, updateUserAvatar);
 
 export default router;
