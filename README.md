@@ -220,3 +220,13 @@
 - create `userController.js` and add `updateUserAvatar`
 - create `userRoutes.js` and add `/users/me/avatar` route
 - add new routes to `server.js`
+
+### Multer Settings
+
+- `npm i multer` - middleware to upload images
+- create `src/middleware/multer.js` (see code)
+- connect the middleware to the `PATCH /users/me/avatar` in `userRoutes.js`
+
+#### Work with file in controller
+
+- add file check to `userController.js`
