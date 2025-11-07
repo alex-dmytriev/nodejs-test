@@ -11,6 +11,7 @@ import cookieParser from 'cookie-parser';
 
 import authRoutes from './routes/authRoutes.js';
 import studentsRoutes from './routes/studentsRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
@@ -26,8 +27,10 @@ app.get('/', (req, res) => {
   res.status(200).json({ message: 'Hello, World!' });
 });
 
+// Business logic routes
 app.use(authRoutes);
-app.use(studentsRoutes); // students routes
+app.use(studentsRoutes);
+app.use(userRoutes);
 
 app.use(notFoundHandler); // Middleware 404
 app.use(errors()); // Celebrate validation error handler
