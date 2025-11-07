@@ -230,3 +230,13 @@
 #### Work with file in controller
 
 - add file check to `userController.js`
+
+### Cloudinary Cloud Storage
+
+- `npm i cloudinary`
+- Register on Cloudinary and add env vars
+
+#### File download Utility
+
+- add `saveFileToCloudinary` function to `/utils/saveFileToCloudinary.js`
+- update `userController.js`
