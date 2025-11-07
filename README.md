@@ -152,14 +152,14 @@
 
 ### Email Protocols
 
-- SMTP: to send data to email server
-- POP3: to receive and store data
-- Crypto versions: TLS/SSL
+- 📚 SMTP: to send data to email server
+- 📚 POP3: to receive and store data
+- 📚 Crypto versions: TLS/SSL
 
 ### Password Reseting Plan
 
-- OTP: one time password
-- JWT: JSON Web token
+- 📚 OTP: one time password
+- 📚 JWT: JSON Web token
   - Format: header.payload.signature
   - Header contains meta data
   - Payload (claims like userId...)
@@ -207,3 +207,16 @@
 - add validator `resetPasswordSchema` to `authValidation.js`
 - add controller `resetPassword` (see logic)
 - add route, validator and controller to `authRoutes.js`
+
+## Images (Lesson 10)
+
+### Files Transferring
+
+- 📚 `Content-Type: multipart/form-data` to send files via HTTP
+
+### Avatar
+
+- add `avatar` property to user model
+- create `userController.js` and add `updateUserAvatar`
+- create `userRoutes.js` and add `/users/me/avatar` route
+- add new routes to `server.js`
